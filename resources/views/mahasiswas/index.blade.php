@@ -14,7 +14,62 @@
 </head>
 
 <body>
-    <div class="row">
+    @extends('layouts.app')
+
+    @section('content')
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tabel Mahasiswa</h5>
+                <div class="row">
+                    <div class="col-4">
+                        <a href="{{ route('mahasiswas.create') }}" class="btn btn-primary">Tambah Mahasiswa</a>
+                    </div>
+                </div>    
+                <br>
+                <!-- Active Table -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col" class="text-center">Jurusan</th>
+                            <th scope="col" class="text-center">Nama</th>
+                            <th scope="col" class="text-center">NIM</th>
+                            <th scope="col" class="text-center">Jenis Kelamin</th>
+                            <th scope="col" class="text-center">Alamat</th>
+                            <th scope="col" class="text-center">No. Telepon</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($mahasiswas as $no=>$mahasiswa)
+                            <tr>
+                                <td>{{ $no + $mahasiswas->firstItem() }}</td>
+                                <td>{{ $mahasiswa->jurusan}}</td>
+                                <td>{{ $mahasiswa->nama }}</td>
+                                <td>{{ $mahasiswa->nim }}</td>
+                                <td>{{ $mahasiswa->jenis_kelamin }}</td>
+                                <td>{{ $mahasiswa->alamat }}</td>
+                                <td>{{ $mahasiswa->no_telp }}</td>  
+                                <td><a href="{{ route('mahasiswas.edit', $mahasiswa->id) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('mahasiswas.destroy', $mahasiswa->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+              
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- End Tables without borders -->
+
+                {{$mahasiswas->links()}}
+            </div>
+        </div>
+    @endsection
+
+    {{-- <div class="row">
         <div class="col-2">
             <ul class="list-group">
                 <a href="/" class="list-group-item list-group-item-action active" aria-current="true">Tabel Mahasiswa</a>
@@ -44,7 +99,7 @@
                 </tr>
                 @foreach ($mahasiswas as $no => $mahasiswa)
                     <tr>
-                        <td>{{ $no + 1 }}</td>
+                        <td>{{ $no + $mahasiswas->firstItem() }}</td>
                         <td>{{ $mahasiswa->jurusan->nama}}</td>
                         <td>{{ $mahasiswa->nama }}</td>
                         <td>{{ $mahasiswa->nim }}</td>
@@ -61,9 +116,9 @@
                     </tr>
                 @endforeach
             </table>
-            {{-- {{$items->links()}} --}}
+            {{$mahasiswas->links()}}
         </div>
-    </div>
+    </div> --}}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

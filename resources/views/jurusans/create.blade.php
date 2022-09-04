@@ -14,26 +14,36 @@
 </head>
 
 <body>
-    <div class="container mt-3">
-        <h1>Form Tambah Jurusan</h1>
-        <form action="{{ route('jurusans.store') }}" method="post">
-            @csrf
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama</label>
-                <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
-            </div>
-            <div class="mb-3">
-                <label for="desc" class="form-label">Deskripsi</label>
-                <input type="text" name="desc" class="form-control" id="desc" placeholder="Deskripsi">
-            </div>
+    @extends("layouts.app")
 
-            <div class=row>
-                <div class="col-2">
-                    <button class="btn btn-info">Submit</button>
+    @section("content")
+        <div class="card">
+            <div class="card-body">
+
+                <div class="container mt-3">
+                    <h3 class = "card-title">Form Tambah Jurusan</h3>
+                    <form action="{{ route('jurusans.store') }}" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                        </div>
+                        <div class="mb-3">
+                            <label for="desc" class="form-label">Deskripsi</label>
+                            <input type="text" name="desc" class="form-control" id="desc"
+                                placeholder="Deskripsi">
+                        </div>
+
+                        <div class=row>
+                            <div class="col-2">
+                                <button class="btn btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    @endsection
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

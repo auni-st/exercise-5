@@ -35,3 +35,6 @@ Route::get("/jurusans/edit/{id}", [JurusanController::class, "edit"])->name("jur
 Route::post("/jurusans/update/{id}", [JurusanController::class, "update"])->name("jurusans.update");
 Route::delete("/jurusans/destroy/{id}", [JurusanController::class, "destroy"])->name("jurusans.destroy");
 
+Route::get("/template", function(){
+    return view("mahasiswas.index");
+});

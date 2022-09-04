@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
     public function index(){
-        $mahasiswas = Mahasiswa::with("jurusan")->get();
-
+        // $mahasiswas = Mahasiswa::with("jurusan")->paginate(25);
+        $mahasiswas = DB::table("mahasiswas")
+            ->leftJoin("jurusans", "mahasiswas.jurusan_id", "=", "jurusans.id")
+            ->select("mahasiswas.*", "jurusans.nama as jurusan")
+            ->orderBy("mahasiswas.nama")
+            ->paginate(25);
         return view("mahasiswas.index", compact("mahasiswas"));
     }
     

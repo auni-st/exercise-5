@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer("nim");
             $table->string("jenis_kelamin");
             $table->text("alamat");
-            $table->integer("no_telp");
+            $table->string("no_telp");
+            $table->foreignId("jurusan_id")->nullable();
             $table->timestamps();
         });
     }

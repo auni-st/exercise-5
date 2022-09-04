@@ -14,48 +14,90 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-2">
-            <ul class="list-group">
-                <a href="/" class="list-group-item list-group-item-action active" aria-current="true">Tabel Mahasiswa</a>
-                <a href="/jurusans" class="list-group-item " aria-current="true">Tabel Jurusan</a>
-            </ul>
-        </div>
+    @extends('layouts.app')
 
-        <div class="container mt-3">
-            <h1>Tabel Jurusan</h1>
-            <br>
-            <div class=row>
-                <div class="col-2">
-                    <a href="{{ route('jurusans.create') }}" class="btn btn-primary">Tambah Jurusan</a>
+    @section('content')
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tabel Jurusan</h5>
+                <div class="row">
+                    <div class="col-4">
+                        <a href="{{ route('jurusans.create') }}" class="btn btn-primary">Tambah Jurusan</a>
+                    </div>
                 </div>
+                <br>
+                <!-- Active Table -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col" class="text-center">Nama</th>
+                            <th scope="col" class="text-center">Deskripsi</th>
+                            <th scope="col" class="text-center">Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($jurusans as $no => $jurusan)
+                            <tr>
+                                <td>{{ $no + $jurusans->firstItem()}}</td>
+                                <td>{{ $jurusan->nama }}</td>
+                                <td>{{ $jurusan->desc }}</td>
+                                <td><a href="{{ route('jurusans.edit', $jurusan->id) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('jurusans.destroy', $jurusan->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+
+
+                    </tbody>
+                </table>
+                {{$jurusans->links()}}
+                <!-- End Tables without borders -->
+
             </div>
-            <br>
-            <table class="table table-bordered">
-                <tr>
-                    <th>No.</th>
-                    <th>Nama </th>
-                    <th>Deskripsi</th>
-                    <th>ACTIONS</th>
-                </tr>
-                @foreach ($jurusans as $no => $jurusan)
-                    <tr>
-                        <td>{{ $no + 1 }}</td>
-                        <td>{{ $jurusan->nama }}</td>
-                        <td>{{ $jurusan->desc }}</td>
-                        <td><a href="{{ route('jurusans.edit', $jurusan->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('jurusans.destroy', $jurusan->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-            {{-- {{$items->links()}} --}}
         </div>
+    @endsection
+
+    {{-- <div class="row">
+            <div class="container mt-3">
+                <h1>Tabel Jurusan</h1>
+                <br>
+                <div class=row>
+                    <div class="col-2">
+                        <a href="{{ route('jurusans.create') }}" class="btn btn-primary">Tambah Jurusan</a>
+                    </div>
+                </div>
+                <br>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama </th>
+                        <th>Deskripsi</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                    @foreach ($jurusans as $no => $jurusan)
+                        <tr>
+                            <td>{{ $no + 1 }}</td>
+                            <td>{{ $jurusan->nama }}</td>
+                            <td>{{ $jurusan->desc }}</td>
+                            <td><a href="{{ route('jurusans.edit', $jurusan->id) }}" class="btn btn-warning">Edit</a>
+                                <form action="{{ route('jurusans.destroy', $jurusan->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+                {{-- {{$items->links()}} --}}
     </div>
+    </div> --}}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

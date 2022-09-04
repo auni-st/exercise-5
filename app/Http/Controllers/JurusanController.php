@@ -9,7 +9,7 @@ class JurusanController extends Controller
 {
     //
     public function index(){
-        $jurusans = Jurusan::all();
+        $jurusans = Jurusan::paginate(3);
 
         return view("jurusans.index", compact("jurusans"));
     }
@@ -25,7 +25,7 @@ class JurusanController extends Controller
             "desc"=>$request->desc,
         ]);
 
-        return redirect("/");
+        return redirect("/jurusans");
     }
 
     public function edit($id){
@@ -42,14 +42,14 @@ class JurusanController extends Controller
             "desc"=>$request->desc ?? $jurusans->desc,
         ]);
 
-        return redirect("/");
+        return redirect("/jurusans");
     }
 
     public function destroy($id){
         $mahasiswa = Jurusan::findOrFail($id);
         $mahasiswa->delete();
         
-        return redirect("/");
+        return redirect("/jurusans");
     }
 
 }
